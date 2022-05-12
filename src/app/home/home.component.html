@@ -1,0 +1,74 @@
+<div style="margin-top:5%" class="container">
+  <div style="margin-top: 5%" class="row">
+    <div class="col">
+      <div class="card" style="">
+        <div class="card-body">
+          <h6 class="card-subtitle mb-2 text-muted">Highest Touchdown Passes</h6>
+          <hr>
+          <p class="card-text">Player: {{ highest_touch_down.name }}</p>
+          <p class="card-text">Count: {{ highest_touch_down.touchdown }}</p>
+        </div>
+      </div>
+    </div>
+    <div class="col">
+      <div class="card" style="">
+        <div class="card-body">
+          <h6 class="card-subtitle mb-2 text-muted">Highest Rushing Yards</h6>
+          <hr>
+          <p class="card-text">Player: {{ highest_rushingyards.name }}</p>
+          <p class="card-text">Count: {{ highest_rushingyards.rushing_yards }}</p>
+        </div>
+      </div>
+    </div>
+    <div class="col">
+      <div class="card" style="">
+        <div class="card-body">
+          <h6 class="card-subtitle mb-2 text-muted">Least Rushing Yards</h6>
+          <hr>
+          <p class="card-text">Player: {{ least_rushingyards.name }}</p>
+          <p class="card-text">Count: {{ least_rushingyards.rushing_yards }}</p>
+        </div>
+      </div>
+    </div>
+    <div class="col">
+      <div class="card" style="">
+        <div class="card-body">
+          <h6 class="card-subtitle mb-2 text-muted">Highest Sacks</h6>
+          <hr>
+          <p class="card-text">Player: {{ highest_sacks.name }}</p>
+          <p class="card-text">Count: {{ highest_sacks.sacks }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div style="margin-top:5%" class="row">
+    <table class="table table-striped table-primary">
+      <thead>
+      <tr>
+        <th scope="col">PLAYER</th>
+        <th scope="col">AGE</th>
+        <th scope="col">SACKS</th>
+        <th scope="col">GOALS</th>
+        <th scope="col">TOUCHDOWN</th>
+        <th scope="col">RUSHING YARDS</th>
+        <th scope="col">UPDATE</th>
+        <th scope="col">DELETE</th>
+
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let p of players let i = index;">
+        <th scope="row" style="color: gray;">{{p.name | uppercase}}</th>
+        <td>{{p.age}}</td>
+        <td>{{p.sacks}}</td>
+        <td>{{p.goals}}</td>
+        <td>{{p.touchdown}}</td>
+        <td>{{p.rushing_yards}}</td>
+        <td><button class="btn btn-info">Update</button></td>
+        <td><button (click)="delete(p._id)" class="btn btn-danger">Delete</button></td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
