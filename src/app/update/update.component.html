@@ -1,0 +1,41 @@
+<div style="margin-top:1.5%" class="container">
+  <label>Update</label>
+  <div style="margin-top: 5%" class="row">
+
+    <form>
+      <div class="form-group">
+        <label for="name">Player</label>
+        <input [(ngModel)]="name" type="text" class="form-control" id="name" [ngModelOptions]="{standalone: true}">
+      </div>
+
+      <div class="form-group">
+        <label for="sacks">Sacks</label>
+        <input [(ngModel)]="sacks" type="number" class="form-control" id="sacks" [ngModelOptions]="{standalone: true}">
+      </div>
+
+      <div class="form-group">
+        <label for="age">Sacks</label>
+        <input [(ngModel)]="age" type="number" class="form-control" id="age" [ngModelOptions]="{standalone: true}">
+      </div>
+
+      <div class="form-group">
+        <label for="goals">Goals</label>
+        <input [(ngModel)]="goals" type="number" class="form-control" id="goals" [ngModelOptions]="{standalone: true}">
+      </div>
+
+      <div class="form-group">
+        <label for="tdown">Touch Down</label>
+        <input [(ngModel)]="tdown" type="number" class="form-control" id="tdown" [ngModelOptions]="{standalone: true}">
+      </div>
+
+       <div class="form-group">
+        <label for="rushing_yards">Rushing Yards</label>
+        <input [(ngModel)]="ryards" type="number" class="form-control" id="rushing_yards" [ngModelOptions]="{standalone: true}">
+      </div>
+
+      <button (click)="doUpdate(name,  sacks, goals, tdown, ryards, age)" style="margin-top: 1.5%;" type="submit" class="btn btn-primary">Submit</button>
+    </form>
+
+
+  </div>
+</div>

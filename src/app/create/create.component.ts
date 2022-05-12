@@ -1,21 +1,26 @@
-import {Component, NgZone, OnInit} from '@angular/core';
-import axios from 'axios';
-import {Router} from "@angular/router";
+import { Component, OnInit } from '@angular/core';
+import axios from "axios";
 
 @Component({
-  selector: 'app-home',
-  templateUrl: './home.component.html',
-  styleUrls: ['./home.component.css']
+  selector: 'app-create',
+  templateUrl: './create.component.html',
+  styleUrls: ['./create.component.css']
 })
-export class HomeComponent implements OnInit {
+export class CreateComponent implements OnInit {
 
-  constructor(private router: Router, private zone: NgZone) { }
-
+  name: any;
+  sacks: any;
+  goals: any;
+  tdown: any;
+  ryards: any;
+  age: any;
   highest_touch_down: any;
   highest_rushingyards: any;
   highest_sacks: any;
   players: any;
   least_rushingyards: any;
+
+  constructor() { }
 
   ngOnInit(): void {
 
@@ -92,36 +97,28 @@ export class HomeComponent implements OnInit {
       });
   }
 
-  delete(id: any) {
-    const self = this;
-    const config = {
-      method: 'delete',
-      url: `http://localhost:3000/api/delete/${id}`,
-      headers: {}
-    };
+  doCreate(name: any, sacks: any, goals: any, tdown: any, ryards: any, age: any) {
 
-    // @ts-ignore
-    axios(config)
-      .then(function (response) {
-        self.ngOnInit()
+    let self = this;
+      axios.post(`http://localhost:3000/api/post`, {
+        name: name,
+        age: age,
+        sacks: sacks,
+        goals: goals,
+        touchdown: tdown,
+        rushing_yards: ryards
       })
-      .catch(function (error) {
-        console.log(error);
-      });
+        .then(function (response) {
+          console.log(response);
+          localStorage.clear();
+          self.ngOnInit();
+          window.location.reload();
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
 
-  }
 
-  async update(id: any) {
-    localStorage.setItem("id", id);
-    await this.zone.run(async () => {
-      this.router.navigate(['/update']).then(r => console.log(r));
-    });
-  }
-
-  async create() {
-    await this.zone.run(async () => {
-      this.router.navigate(['/create']).then(r => console.log(r));
-    });
   }
 
 }

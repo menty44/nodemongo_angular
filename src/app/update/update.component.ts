@@ -1,15 +1,22 @@
 import {Component, NgZone, OnInit} from '@angular/core';
-import axios from 'axios';
+import axios from "axios";
 import {Router} from "@angular/router";
 
 @Component({
-  selector: 'app-home',
-  templateUrl: './home.component.html',
-  styleUrls: ['./home.component.css']
+  selector: 'app-update',
+  templateUrl: './update.component.html',
+  styleUrls: ['./update.component.css']
 })
-export class HomeComponent implements OnInit {
+export class UpdateComponent implements OnInit {
 
   constructor(private router: Router, private zone: NgZone) { }
+
+  name: any;
+  sacks: any;
+  goals: any;
+  tdown: any;
+  ryards: any;
+  age: any;
 
   highest_touch_down: any;
   highest_rushingyards: any;
@@ -92,36 +99,29 @@ export class HomeComponent implements OnInit {
       });
   }
 
-  delete(id: any) {
-    const self = this;
-    const config = {
-      method: 'delete',
-      url: `http://localhost:3000/api/delete/${id}`,
-      headers: {}
-    };
+  doUpdate(name: any, sacks: any, goals: any, tdown: any, ryards: any, age: any) {
 
-    // @ts-ignore
-    axios(config)
-      .then(function (response) {
-        self.ngOnInit()
+    let self = this;
+   let id_str =  localStorage.getItem("id");
+    if (id_str != null) {
+      axios.patch(`http://localhost:3000/api/update/${id_str}`, {
+        name: name,
+        age: age,
+        sacks: sacks,
+        goals: goals,
+        touchdown: tdown,
+        rushing_yards: ryards
       })
-      .catch(function (error) {
-        console.log(error);
-      });
+        .then(function (response) {
+          console.log(response);
+          localStorage.clear();
+          self.ngOnInit();
+          window.location.reload();
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
 
+    }
   }
-
-  async update(id: any) {
-    localStorage.setItem("id", id);
-    await this.zone.run(async () => {
-      this.router.navigate(['/update']).then(r => console.log(r));
-    });
-  }
-
-  async create() {
-    await this.zone.run(async () => {
-      this.router.navigate(['/create']).then(r => console.log(r));
-    });
-  }
-
 }
